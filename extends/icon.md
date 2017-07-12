@@ -1,1 +1,0 @@
-![icon](https://raw.githubusercontent.com/CloudCoreo/servers-base/master/images/icon.png "icon")

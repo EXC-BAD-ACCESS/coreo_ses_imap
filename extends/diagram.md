@@ -1,1 +1,0 @@
-![diagram](https://raw.githubusercontent.com/CloudCoreo/servers-base/master/images/diagram.png "diagram")
