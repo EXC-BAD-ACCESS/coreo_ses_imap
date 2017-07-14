@@ -1,4 +1,4 @@
-if [ $INSTALL_REDIS == "true" ]; then
+if [ "$INSTALL_REDIS" == "true" ]; then
   coreo_dir="$(pwd)"
 
   wget http://download.redis.io/redis-stable.tar.gz
