@@ -37,6 +37,10 @@ variables:
         description: the name of the .tar.gz file which contains your app code
         overrides: null
         required: true
+    INSTALL_REDIS:
+        default: false
+        description: whether to install and run redis or not          
+        overrides: null
     VPC_NAME:
         required: true
         description: the name of the VPC

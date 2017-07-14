@@ -12,4 +12,5 @@ script-order:
   - setup_nginx.sh
   - install_forever.sh
   - setup_forever.sh
-  
+  - install_redis.sh
+  - setup_redis.sh
