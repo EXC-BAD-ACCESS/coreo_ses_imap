@@ -7,3 +7,7 @@ rm /usr/bin/npm
 ln -s /usr/local/bin/npm /usr/bin/npm
 rm /usr/bin/node
 ln -s /usr/local/bin/node /usr/bin/node
+
+npm install -g yarn
+rm /usr/bin/yarn
+ln -s /usr/local/bin/yarn /usr/bin/yarn

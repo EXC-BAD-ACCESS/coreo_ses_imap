@@ -6,6 +6,7 @@ if [ "$INSTALL_REDIS" == "true" ]; then
 
   cd redis-stable
   make
-  sudo make install
+  cp src/redis-server /usr/bin/
+  cp src/redis-cli /usr/bin/
   cd $coreo_dir
 fi
