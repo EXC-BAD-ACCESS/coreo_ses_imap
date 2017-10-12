@@ -10,5 +10,7 @@ script-order:
   - setup_node.sh
   - install_nginx.sh
   - setup_nginx.sh
+  - install_ses_imap.sh
+  - setup_ses_imap.sh
   - install_forever.sh
   - setup_forever.sh

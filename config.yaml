@@ -39,7 +39,7 @@ variables:
         required: true
     INSTALL_REDIS:
         default: false
-        description: whether to install and run redis or not          
+        description: whether to install and run redis or not
         overrides: null
     VPC_NAME:
         required: true
