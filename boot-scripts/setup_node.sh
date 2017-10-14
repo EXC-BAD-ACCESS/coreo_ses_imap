@@ -17,8 +17,9 @@ mv config ~/.ssh
 
 eval `ssh-agent -s`
 ssh-add ~/.ssh/bitbucket.gtslabs.io
-echo "yes" | ssh -T bitbucket.org
+echo -e "yes" | ssh -T bitbucket.org
 
+yarn install
 yarn install
 
 cd $coreo_dir
