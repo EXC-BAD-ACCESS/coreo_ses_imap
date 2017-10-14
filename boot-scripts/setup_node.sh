@@ -11,8 +11,14 @@ tar -zxvf $APP_ARCHIVE_NAME.tar.gz
 
 chmod 400 bitbucket.gtslabs.io
 mv bitbucket.gtslabs.io ~/.ssh
+chmod 400 config
+chown root:root config
 mv config ~/.ssh
 
-yarn install --production
+eval `ssh-agent -s`
+ssh-add ~/.ssh/bitbucket.gtslabs.io
+echo "yes" | ssh -T bitbucket.org
+
+yarn install
 
 cd $coreo_dir
