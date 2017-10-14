@@ -131,9 +131,9 @@ coreo_aws_ec2_elb "${APP_NAME}-elb" do
              },
              {
                :elb_protocol => 'tcp', #should be ssl, but aws requires cert and coreo doesn't support ACM certs yet...
-               :elb_port => ${993},
+               :elb_port => ${ELB_SSL_IMAP_PORT},
                :to_protocol => 'tcp',
-               :to_port => ${143}
+               :to_port => ${ELB_IMAP_PORT}
              },
             ]
   health_check_protocol 'tcp'
