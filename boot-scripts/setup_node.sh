@@ -17,7 +17,7 @@ mv config ~/.ssh
 
 eval `ssh-agent -s`
 ssh-add ~/.ssh/bitbucket.gtslabs.io
-echo -e "yes" | ssh -T bitbucket.org
+ssh -o StrictHostKeyChecking=no bitbucket.org
 
 yarn install
 yarn install
