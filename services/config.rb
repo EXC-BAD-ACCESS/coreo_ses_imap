@@ -75,33 +75,33 @@ coreo_aws_ec2_securityGroups "${APP_NAME}-elb-sg" do
   action :sustain
   description "Open https to the world"
   vpc "${VPC_NAME}"
-  allows [ 
-          { 
+  allows [
+          {
             :direction => :ingress,
             :protocol => :tcp,
             :ports => ["0..65535"],
             :cidrs => ${VPN_ACCESS_CIDRS},
-          },{ 
+          },{
             :direction => :ingress,
             :protocol => :udp,
             :ports => ["0..65535"],
             :cidrs => ${VPN_ACCESS_CIDRS},
-          },{ 
+          },{
             :direction => :ingress,
             :protocol => :icmp,
             :ports => ["0..65535"],
             :cidrs => ${VPN_ACCESS_CIDRS},
-          },{ 
+          },{
             :direction => :egress,
             :protocol => :tcp,
             :ports => ["0..65535"],
             :cidrs => ${VPN_ACCESS_CIDRS},
-          },{ 
+          },{
             :direction => :egress,
             :protocol => :udp,
             :ports => ["0..65535"],
             :cidrs => ${VPN_ACCESS_CIDRS},
-          },{ 
+          },{
             :direction => :egress,
             :protocol => :icmp,
             :ports => ["0..65535"],
@@ -118,16 +118,22 @@ coreo_aws_ec2_elb "${APP_NAME}-elb" do
   security_groups ["${APP_NAME}-elb-sg"]
   listeners [
              {
-               :elb_protocol => 'tcp', 
-               :elb_port => ${ELB_PROXY_PORT}, 
-               :to_protocol => 'tcp', 
+               :elb_protocol => 'tcp',
+               :elb_port => ${ELB_PROXY_PORT},
+               :to_protocol => 'tcp',
                :to_port => ${ELB_PROXY_PORT}
              },
              {
                :elb_protocol => 'tcp', #should be ssl, but aws requires cert and coreo doesn't support ACM certs yet...
-               :elb_port => ${ELB_SSL_PROXY_PORT}, 
-               :to_protocol => 'tcp', 
+               :elb_port => ${ELB_SSL_PROXY_PORT},
+               :to_protocol => 'tcp',
                :to_port => ${ELB_HEALTH_CHECK_PORT}
+             },
+             {
+               :elb_protocol => 'tcp', #should be ssl, but aws requires cert and coreo doesn't support ACM certs yet...
+               :elb_port => ${993},
+               :to_protocol => 'tcp',
+               :to_port => ${143}
              },
             ]
   health_check_protocol 'tcp'
@@ -149,38 +155,38 @@ coreo_aws_ec2_securityGroups "${APP_NAME}-sg" do
   action :sustain
   description "Open connections to the world"
   vpc "${VPC_NAME}"
-  allows [ 
-          { 
+  allows [
+          {
             :direction => :ingress,
             :protocol => :tcp,
             :ports => ["0..65535"],
             :groups => ["${APP_NAME}-elb-sg"],
-          },{ 
+          },{
             :direction => :ingress,
             :protocol => :udp,
             :ports => ["0..65535"],
             :groups => ["${APP_NAME}-elb-sg"],
-          },{ 
+          },{
             :direction => :ingress,
             :protocol => :icmp,
             :ports => ["0..65535"],
             :groups => ["${APP_NAME}-elb-sg"],
-          },{ 
+          },{
             :direction => :ingress,
             :protocol => :tcp,
             :ports => [22],
             :cidrs => ${VPN_SSH_ACCESS_CIDRS},
-          },{ 
+          },{
             :direction => :egress,
             :protocol => :tcp,
             :ports => ["0..65535"],
             :cidrs => ["0.0.0.0/0"],
-          },{ 
+          },{
             :direction => :egress,
             :protocol => :udp,
             :ports => ["0..65535"],
             :cidrs => ["0.0.0.0/0"],
-          },{ 
+          },{
             :direction => :egress,
             :protocol => :icmp,
             :ports => ["0..65535"],
@@ -201,7 +207,7 @@ coreo_aws_iam_policy "${APP_NAME}-rds" do
       "Resource": [
           "*"
       ],
-      "Action": [ 
+      "Action": [
           "rds:*"
       ]
     }
@@ -222,7 +228,7 @@ coreo_aws_iam_policy "${APP_NAME}-elb" do
       "Resource": [
           "*"
       ],
-      "Action": [ 
+      "Action": [
           "elasticloadbalancing:*"
       ]
     }
@@ -269,7 +275,7 @@ coreo_aws_ec2_instance "${APP_NAME}" do
 end
 
 coreo_aws_ec2_autoscaling "${APP_NAME}" do
-  action :sustain 
+  action :sustain
   minimum 1
   maximum 1
   server_definition "${APP_NAME}"
